@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <style>
+
+        
+        body {
+        font-family: sans-serif;
+        margin: 2rem;
+        background-color: #212529; /* Dark gray background for dark mode */
+        color: #fff; /* White text for dark mode */
+        min-height: 100vh; /* Set minimum height for body (optional) */
+        display: flex; /* Use flexbox for layout (optional) */
+        flex-direction: column; /* Arrange elements vertically */
+        }
+
+        /* Navbar Styling */
+
+        header {
+        background-color: #ffc107; /* Yellow background for navbar */
+        padding: 1rem 2rem; /* Add some padding */
+        border-radius: 5px; /* Add rounded corners for smooth design */
+        position: fixed; /* Fix navbar to the top */
+        top: 0; /* Position at top of the viewport */
+        left: 0; /* Position at left edge of the viewport */
+        width: 100%; /* Make navbar full width */
+        z-index: 10; /* Set stacking order to appear above content */
+        }
+
+        nav a {
+        color: #000; /* Black text for navbar */
+        font-size: 1.2rem; /* Increase font size for title */
+        font-weight: bold; /* Make text bold */
+        text-decoration: none; /* Remove underline from link */
+        }
+
+        /* Footer Styling */
+
+        footer {
+        text-align: center; /* Center align the footer content */
+        margin-top: auto; /* Push footer to bottom */
+        padding: 1rem; /* Add some padding */
+        background-color: #212529; /* Match background color to body */
+        border-radius: 5px; /* Add rounded corners for smooth design */
+        position: fixed; /* Fix footer to the bottom */
+        bottom: 0; /* Position at bottom of the viewport */
+        left: 0; /* Position at left edge of the viewport */
+        width: 100%; /* Make footer full width */
+        z-index: 10; /* Set stacking order to appear above content */
+        }
+
+        footer p {
+        color: #fff; /* White text for footer */
+        font-size: 0.8rem; /* Adjust font size for smaller text */
+        margin: 0; /* Remove default margin */
+        }
+
+        /* Optional: Set minimum height for main content (adjust as needed) */
+
+        section {
+        flex: 1; /* Allow content to fill remaining space */
+        padding: 2rem; /* Add some padding to content area */
+        }
+        h1 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: inherit; /* Inherit white text color from body */
+        }
+
+        form {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        }
+
+        label {
+        margin-right: 0.5rem;
+        color: inherit; /* Inherit white text color from body */
+        }
+
+        input[type="text"] {
+        flex: 2;
+        padding: 0.5rem;
+        border: 1px solid #444; /* Darker gray border */
+        border-radius: 3px;
+        background-color: #333; /* Darker gray background for input field */
+        color: #fff; /* White text for input field */
+        }
+
+        button[type="submit"] {
+        padding: 1rem 2rem; /* Increase button size */
+        background-color: #007bff; /* Blue background */
+        color: #fff; /* White text */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        /* Improved button styling */
+        box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2); /* More prominent shadow */
+        transition: all 0.2s ease-in-out; /* Smooth hover effect */
+        }
+
+        button[type="submit"]:hover {
+        background-color: #0067cc; /* Darker blue on hover */
+        }
+
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        color: inherit; /* Inherit white text color from body */
+        }
+
+        th, td {
+        padding: 0.75rem 1rem; /* Increase table cell padding */
+        border: 1px solid #444; /* Darker gray border */
+        text-align: left;
+        }
+
+        th {
+        background-color: #333; /* Darker gray background for headers */
+        }
+
+        tbody tr:nth-child(even) {
+        background-color: #2e3136; /* Slightly lighter gray background for even rows */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+          <a href="#">URL SHORTENER</a>
+        </nav>
+      </header>
+    <h1>Hey from the Server</h1>
+    <% if (locals.id) { %>
+        <p>URL generated : http://localhost:8001/url/<%= id %></p>
+    <% } %>
+    <div>
+        <form method="POST" action="/url">
+            <label >Enter your Original URL here : </label>
+            <input name="url" type="text/" placeholder="https://exampleUrl.com">
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <div>
+        <% if (locals.urls) { %>
+            <table>
+                <thead>
+                    <th>S.No</th>
+                    <th>ShortID</th>
+                    <th>Redirect</th>
+                    <th>Clicks</th>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url,index) => { %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                        <td><%= url.shortId %></td>
+                        <td><%= url.redirectURL %></td>
+                        <td><%= url.visitHistory.length %></td>
+
+                        </tr>
+                        
+                     
+                    <% }) %>
+                </tbody>
+            </table>
+         
+        <% } %>
+    </div>
+    <footer>
+        <p>Project by Ayush Sharma</p>
+      </footer>
+    
+  </body>
+</html>
+
